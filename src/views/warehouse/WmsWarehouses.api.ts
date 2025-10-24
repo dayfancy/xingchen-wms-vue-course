@@ -11,6 +11,10 @@ enum Api {
   deleteBatch = '/warehouse/wmsWarehouses/deleteBatch',
   importExcel = '/warehouse/wmsWarehouses/importExcel',
   exportXls = '/warehouse/wmsWarehouses/exportXls',
+  //启用
+  enable = '/warehouse/wmsWarehouses/enable',
+  //禁用
+  disable = '/warehouse/wmsWarehouses/disable',
 }
 /**
  * 导出api
@@ -21,6 +25,45 @@ export const getExportUrl = Api.exportXls;
  * 导入api
  */
 export const getImportUrl = Api.importExcel;
+
+/**
+ * 启用
+ */
+export const enable = (params, handleSuccess) => {
+  createConfirm({
+    iconType: 'warning',
+    title: '确认启用',
+    content: '是否启用选中数据',
+    okText: '确认',
+    cancelText: '取消',
+    onOk: () => {
+      return defHttp.put({url: Api.enable, data: params}).then(() => {
+        handleSuccess();
+      });
+    }
+  })
+}
+/**
+ * 禁用
+ */
+export const disable = (params, handleSuccess) => {
+  createConfirm({
+    iconType: 'warning',
+    title: '确认禁用',
+    content: '是否禁用选中数据',
+    okText: '确认',
+    cancelText: '取消',
+    onOk: () => {
+      return defHttp.put({url: Api.disable, data: params}).then(() => {
+        handleSuccess();
+      });
+    }
+  })
+}
+
+
+
+
 /**
  * 列表接口
  * @param params
