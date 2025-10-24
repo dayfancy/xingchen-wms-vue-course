@@ -69,7 +69,8 @@ export const formSchema: FormSchema[] = [
     field: 'status',
     component: 'JDictSelectTag',
     componentProps:{
-        dictCode:"wms_status"
+        dictCode:"wms_status",
+        disabled: true,
      },
     dynamicRules: ({model,schema}) => {
           return [
