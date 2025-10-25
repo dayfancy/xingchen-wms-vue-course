@@ -47,7 +47,7 @@
   import { useListPage } from '/@/hooks/system/useListPage';
   import WmsWarehousesModal from './components/WmsWarehousesModal.vue';
   import { columns, searchFormSchema, superQuerySchema } from './WmsWarehouses.data';
-  import { list, deleteOne, batchDelete, getImportUrl, getExportUrl, enable, disable } from './WmsWarehouses.api'; /**/
+  import { list, deleteOne, batchDelete, getImportUrl, getExportUrl } from './WmsWarehouses.api'; /**/
   import { downloadFile } from '/@/utils/common/renderUtils';
   import { useUserStore } from '/@/store/modules/user';
   const queryParam = reactive<any>({});
@@ -133,18 +133,7 @@
     });
   }
 
-  /**
-   * 启用事件
-   */
-  async function handleEnable(record) {
-    await enable({ id: record.id }, handleSuccess);
-  }
-  /**
-   * 禁用事件
-   */
-  async function handleDisable(record) {
-    await disable({ id: record.id }, handleSuccess);
-  }
+
   /**
    * 删除事件
    */
@@ -172,16 +161,6 @@
         label: '编辑',
         onClick: handleEdit.bind(null, record),
         auth: 'warehouse:wms_warehouses:edit',
-      },
-      //启用
-      {
-        label: '启用',
-        onClick: handleEnable.bind(null, record),
-      },
-      //禁用
-      {
-        label: '禁用',
-        onClick: handleDisable.bind(null, record),
       },
     ];
   }
