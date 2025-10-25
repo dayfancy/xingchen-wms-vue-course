@@ -20,7 +20,6 @@
             <Icon icon="mdi:chevron-down" />
           </a-button>
         </a-dropdown>
-
       </template>
       <!--操作栏-->
       <template #action="{ record }">
@@ -44,6 +43,7 @@
   import { list, deleteOne, batchDelete, getImportUrl, getExportUrl } from './WmsStorageZones.api';
   import { downloadFile } from '/@/utils/common/renderUtils';
   import { useUserStore } from '/@/store/modules/user';
+  import { disable, enable } from '@/views/warehouse/WmsStorageZones.api';
   const queryParam = reactive<any>({});
   const checkedKeys = ref<Array<string | number>>([]);
   const userStore = useUserStore();
@@ -133,6 +133,18 @@
     await deleteOne({ id: record.id }, handleSuccess);
   }
   /**
+   * 启用
+   */
+  async function handleEnable(record) {
+    await enable({ id: record.id }, handleSuccess);
+  }
+  /**
+   * 禁用
+   */
+  async function handleDisable(record) {
+    await disable({ id: record.id }, handleSuccess);
+  }
+  /**
    * 批量删除事件
    */
   async function batchHandleDelete() {
@@ -153,6 +165,22 @@
         label: '编辑',
         onClick: handleEdit.bind(null, record),
         auth: 'warehouse:wms_storage_zones:edit',
+      },
+      {
+        label: '启用',
+        popConfirm: {
+          title: '是否确认启用',
+          confirm: handleEnable.bind(null, record),
+          placement: 'topLeft',
+        },
+      },
+      {
+        label: '禁用',
+        popConfirm: {
+          title: '是否确认禁用',
+          confirm: handleDisable.bind(null, record),
+          placement: 'topLeft',
+        },
       },
     ];
   }

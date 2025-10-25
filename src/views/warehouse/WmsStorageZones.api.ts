@@ -1,13 +1,15 @@
-import {defHttp} from '/@/utils/http/axios';
-import { useMessage } from "/@/hooks/web/useMessage";
+import { defHttp } from '/@/utils/http/axios';
+import { useMessage } from '/@/hooks/web/useMessage';
 
 const { createConfirm } = useMessage();
 
 enum Api {
   list = '/warehouse/wmsStorageZones/list',
-  save='/warehouse/wmsStorageZones/add',
-  edit='/warehouse/wmsStorageZones/edit',
+  save = '/warehouse/wmsStorageZones/add',
+  edit = '/warehouse/wmsStorageZones/edit',
   deleteOne = '/warehouse/wmsStorageZones/delete',
+  enable = '/warehouse/wmsStorageZones/enable',
+  disable = '/warehouse/wmsStorageZones/disable',
   deleteBatch = '/warehouse/wmsStorageZones/deleteBatch',
   importExcel = '/warehouse/wmsStorageZones/importExcel',
   exportXls = '/warehouse/wmsStorageZones/exportXls',
@@ -25,17 +27,37 @@ export const getImportUrl = Api.importExcel;
  * 列表接口
  * @param params
  */
-export const list = (params) =>
-  defHttp.get({url: Api.list, params});
+export const list = (params) => defHttp.get({ url: Api.list, params });
 
 /**
  * 删除单个
  */
-export const deleteOne = (params,handleSuccess) => {
-  return defHttp.delete({url: Api.deleteOne, params}, {joinParamsToUrl: true}).then(() => {
+export const deleteOne = (params, handleSuccess) => {
+  return defHttp.delete({ url: Api.deleteOne, params }, { joinParamsToUrl: true }).then(() => {
     handleSuccess();
   });
-}
+};
+
+/**
+ * 启用
+ * @param params
+ * @param handleSuccess
+ */
+export const enable = (params, handleSuccess) => {
+  return defHttp.put({ url: Api.enable, params }, { joinParamsToUrl: true }).then(() => {
+    handleSuccess();
+  });
+};
+/**
+ * 禁用
+ * @param params
+ * @param handleSuccess
+ */
+export const disable = (params, handleSuccess) => {
+  return defHttp.put({ url: Api.disable, params }, { joinParamsToUrl: true }).then(() => {
+    handleSuccess();
+  });
+};
 /**
  * 批量删除
  * @param params
@@ -48,17 +70,17 @@ export const batchDelete = (params, handleSuccess) => {
     okText: '确认',
     cancelText: '取消',
     onOk: () => {
-      return defHttp.delete({url: Api.deleteBatch, data: params}, {joinParamsToUrl: true}).then(() => {
+      return defHttp.delete({ url: Api.deleteBatch, data: params }, { joinParamsToUrl: true }).then(() => {
         handleSuccess();
       });
-    }
+    },
   });
-}
+};
 /**
  * 保存或者更新
  * @param params
  */
 export const saveOrUpdate = (params, isUpdate) => {
-  let url = isUpdate ? Api.edit : Api.save;
-  return defHttp.post({url: url, params});
-}
+  const url = isUpdate ? Api.edit : Api.save;
+  return defHttp.post({ url: url, params });
+};
