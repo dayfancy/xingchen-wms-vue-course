@@ -32,6 +32,9 @@ export const formSchema: FormSchema[] = [
     field: 'warehouseCode',
     component: 'Input',
     dynamicRules: ({ model, schema }) => {
+      // 简单引用参数以消除未使用警告
+      void model;
+      void schema;
       return [{ required: true, message: '请输入仓库代码!' }];
     },
   },
@@ -40,6 +43,9 @@ export const formSchema: FormSchema[] = [
     field: 'warehouseName',
     component: 'Input',
     dynamicRules: ({ model, schema }) => {
+      // 简单引用参数以消除未使用警告
+      void model;
+      void schema;
       return [{ required: true, message: '请输入仓库名称!' }];
     },
   },
@@ -51,6 +57,8 @@ export const formSchema: FormSchema[] = [
       dictCode: 'warehouse_attr',
     },
     dynamicRules: ({ model, schema }) => {
+      void model;
+      void schema;
       return [{ required: true, message: '请输入仓库属性!' }];
     },
   },
@@ -62,6 +70,8 @@ export const formSchema: FormSchema[] = [
       dictCode: 'wms_status',
     },
     dynamicRules: ({ model, schema }) => {
+      void model;
+      void schema;
       return [{ required: true, message: '请输入状态: 创建,启动,禁用!' }];
     },
   },
