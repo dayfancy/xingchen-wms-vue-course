@@ -8,6 +8,8 @@ enum Api {
   save = '/warehouse/wmsWarehouses/add',
   edit = '/warehouse/wmsWarehouses/edit',
   deleteOne = '/warehouse/wmsWarehouses/delete',
+  enable = '/warehouse/wmsWarehouses/enable',
+  disable = '/warehouse/wmsWarehouses/disable',
   deleteBatch = '/warehouse/wmsWarehouses/deleteBatch',
   importExcel = '/warehouse/wmsWarehouses/importExcel',
   exportXls = '/warehouse/wmsWarehouses/exportXls',
@@ -33,6 +35,26 @@ export const list = (params) => defHttp.get({ url: Api.list, params });
  */
 export const deleteOne = (params, handleSuccess) => {
   return defHttp.delete({ url: Api.deleteOne, params }, { joinParamsToUrl: true }).then(() => {
+    handleSuccess();
+  });
+};
+/**
+ * 启用
+ * @param params
+ * @param handleSuccess
+ */
+export const enable = (params, handleSuccess) => {
+  return defHttp.put({ url: Api.enable, params }, { joinParamsToUrl: true }).then(() => {
+    handleSuccess();
+  });
+};
+/**
+ * 禁用
+ * @param params
+ * @param handleSuccess
+ */
+export const disable = (params, handleSuccess) => {
+  return defHttp.put({ url: Api.disable, params }, { joinParamsToUrl: true }).then(() => {
     handleSuccess();
   });
 };
