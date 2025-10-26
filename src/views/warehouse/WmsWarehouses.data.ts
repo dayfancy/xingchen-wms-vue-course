@@ -69,6 +69,11 @@ export const formSchema: FormSchema[] = [
     componentProps: {
       dictCode: 'wms_status',
     },
+       dynamicDisabled: ({ values }) => {
+     // 当存在id时（即编辑状态）禁用该字段
+     return !!values.id;
+   },
+
     dynamicRules: ({ model, schema }) => {
       void model;
       void schema;

@@ -105,6 +105,10 @@ export const formSchema: FormSchema[] = [
         { ...rules.duplicateCheckRule('wms_storage_locations', 'location_code', model, schema)[0] },
       ];
     },
+    dynamicDisabled: ({ values }) => {
+      // 当状态为启用时（假设启用状态值为'1'），禁用该字段
+      return values.status === 'ACTIVE';
+    },
   },
   {
     label: '储位类别',
@@ -112,6 +116,10 @@ export const formSchema: FormSchema[] = [
     component: 'JDictSelectTag',
     componentProps: {
       dictCode: 'location_category',
+    },
+    dynamicDisabled: ({ values }) => {
+      // 当状态为启用时（假设启用状态值为'1'），禁用该字段
+      return values.status === 'ACTIVE';
     },
     dynamicRules: ({ model, schema }) => {
       return [{ required: true, message: '请输入储位类别!' }];
@@ -123,6 +131,10 @@ export const formSchema: FormSchema[] = [
     component: 'JDictSelectTag',
     componentProps: {
       dictCode: 'location_type',
+    },
+    dynamicDisabled: ({ values }) => {
+      // 当状态为启用时（假设启用状态值为'1'），禁用该字段
+      return values.status === 'ACTIVE';
     },
     dynamicRules: ({ model, schema }) => {
       return [{ required: true, message: '请输入库位类型!' }];
@@ -139,13 +151,22 @@ export const formSchema: FormSchema[] = [
     dynamicRules: ({ model, schema }) => {
       return [{ required: true, message: '请输入状态!' }];
     },
+    dynamicDisabled: ({ values }) => {
+      // 当存在id时（即编辑状态）禁用该字段
+      return !!values.id;
+    }
   },
+
   {
     label: '所属仓库',
     field: 'warehouseId',
     component: 'JDictSelectTag',
     componentProps: {
       dictCode: 'wms_warehouses,warehouse_name,id',
+    },
+    dynamicDisabled: ({ values }) => {
+      // 当状态为启用时（假设启用状态值为'1'），禁用该字段
+      return values.status === 'ACTIVE';
     },
     dynamicRules: ({ model, schema }) => {
       return [{ required: true, message: '请输入所属仓库!' }];
@@ -157,6 +178,10 @@ export const formSchema: FormSchema[] = [
     component: 'JDictSelectTag',
     componentProps: {
       dictCode: 'wms_storage_zones,zone_name,id',
+    },
+    dynamicDisabled: ({ values }) => {
+      // 当状态为启用时（假设启用状态值为'1'），禁用该字段
+      return values.status === 'ACTIVE';
     },
     dynamicRules: ({ model, schema }) => {
       return [{ required: true, message: '请输入所属库区!' }];

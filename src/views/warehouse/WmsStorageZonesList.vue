@@ -165,6 +165,7 @@
         label: '编辑',
         onClick: handleEdit.bind(null, record),
         auth: 'warehouse:wms_storage_zones:edit',
+        disabled: record.status === 'ACTIVE',
       },
       {
         label: '启用',

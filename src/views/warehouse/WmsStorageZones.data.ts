@@ -88,6 +88,10 @@ export const formSchema: FormSchema[] = [
     dynamicRules: ({ model, schema }) => {
       return [{ required: true, message: '请输入状态' }];
     },
+    dynamicDisabled: ({ values }) => {
+      // 当存在id时（即编辑状态）禁用该字段
+      return !!values.id;
+    }
   },
   {
     label: '是否可售库存',
